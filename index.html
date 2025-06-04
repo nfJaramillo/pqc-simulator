@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Criptografía Post-Cuántica - Bancolombia</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Header Corporativo -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <h1 class="logo-text" style="color: #2C2A29;">BANCOLOMBIA</h1> <!-- 1) Negro -->
+                    <p class="logo-subtitle">Área de Conocimiento de Arquitectura e Innovación TI</p> <!-- 2) Nuevo texto -->
+                </div>
+                <div class="header-info">
+                    <h2 class="main-title">Criptografía Post-Cuántica para Arquitectos TI</h2>
+                    <p class="main-subtitle">Simulador Educativo - Preparación para la Era Cuántica</p>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Introducción -->
+    <section class="intro-section">
+        <div class="container">
+            <div class="intro-card">
+                <h3>🚨 La Amenaza Cuántica se Acerca</h3>
+                <p>Los algoritmos criptográficos actuales como RSA serán vulnerables ante computadoras cuánticas. 
+                Descubre cómo el algoritmo de Shor puede romper RSA y por qué necesitamos migrar a criptografía post-cuántica.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Simulador Principal -->
+    <section class="simulator-section">
+        <div class="container">
+            <h3 class="section-title">🔧 Simulador RSA vs Ataque Cuántico</h3>
+            
+            <!-- Generador RSA -->
+            <div class="simulator-grid">
+                <div class="simulator-card rsa-generator">
+                    <h4>1️⃣ Generador RSA Simplificado</h4>
+                    <div class="input-group">
+                        <label for="prime-p">Número primo p:</label>
+                        <input type="number" id="prime-p" value="17" min="2" max="100">
+                    </div>
+                    <div class="input-group">
+                        <label for="prime-q">Número primo q:</label>
+                        <input type="number" id="prime-q" value="19" min="2" max="100">
+                    </div>
+                    <button class="btn btn-generate" id="generate-rsa-btn">Generar Claves RSA</button>
+                    
+                    <div class="results" id="rsa-results">
+                        <div class="calculation-step">
+                            <span class="step-label">n = p × q:</span>
+                            <span class="step-value" id="n-value">-</span>
+                        </div>
+                        <div class="calculation-step">
+                            <span class="step-label">φ(n) = (p-1)(q-1):</span>
+                            <span class="step-value" id="phi-value">-</span>
+                        </div>
+                        <div class="calculation-step">
+                            <span class="step-label">e (clave pública):</span>
+                            <span class="step-value" id="e-value">-</span>
+                        </div>
+                        <div class="calculation-step">
+                            <span class="step-label">d (clave privada):</span>
+                            <span class="step-value" id="d-value">-</span>
+                        </div>
+                        <div class="keys-summary">
+                            <div class="public-key">
+                                <strong>Clave Pública:</strong> (n=<span id="public-n">-</span>, e=<span id="public-e">-</span>)
+                            </div>
+                            <div class="private-key">
+                                <strong>Clave Privada:</strong> (n=<span id="private-n">-</span>, d=<span id="private-d">-</span>)
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Cifrado/Descifrado -->
+                <div class="simulator-card cipher-demo">
+                    <h4>2️⃣ Demo Cifrado/Descifrado RSA</h4>
+                    <div class="input-group">
+                        <label for="message-input">Mensaje (número &lt; n):</label>
+                        <input type="number" id="message-input" value="42" min="1">
+                    </div>
+                    <button class="btn btn-encrypt" id="encrypt-btn">Cifrar Mensaje</button>
+                    <div class="cipher-results" id="cipher-results">
+                        <div class="cipher-step">
+                            <span class="step-label">Mensaje original (M):</span>
+                            <span class="step-value" id="original-message">-</span>
+                        </div>
+                        <div class="cipher-step">
+                            <span class="step-label">Cifrado (C = M^e mod n):</span>
+                            <span class="step-value" id="encrypted-message">-</span>
+                        </div>
+                        <div class="cipher-step">
+                            <span class="step-label">Descifrado (M = C^d mod n):</span>
+                            <span class="step-value" id="decrypted-message">-</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Descifrado manual con llave privada -->
+                <div class="simulator-card cipher-demo">
+                    <h4>🔑 Descifrado manual con clave privada</h4>
+                    <div class="input-group">
+                        <label for="manual-cipher-input">Mensaje cifrado (C):</label>
+                        <input type="number" id="manual-cipher-input" placeholder="Introduce C">
+                    </div>
+                    <div class="input-group">
+                        <label for="manual-d-input">Clave privada d:</label>
+                        <input type="number" id="manual-d-input" placeholder="Introduce d">
+                    </div>
+                    <div class="input-group">
+                        <label for="manual-n-input">Módulo n:</label>
+                        <input type="number" id="manual-n-input" placeholder="Introduce n">
+                    </div>
+                    <button class="btn btn-encrypt" id="manual-decrypt-btn">Descifrar con clave privada</button>
+                    <div class="cipher-results" id="manual-cipher-results">
+                        <div class="cipher-step">
+                            <span class="step-label">Mensaje descifrado (M):</span>
+                            <span class="step-value" id="manual-cipher-decrypted-message">-</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Cifrado manual con clave pública -->
+                <div class="simulator-card cipher-demo">
+                    <h4>🔒 Cifrado manual con clave pública</h4>
+                    <div class="input-group">
+                        <label for="manual-message-input">Mensaje (M):</label>
+                        <input type="number" id="manual-message-input" placeholder="Introduce M">
+                    </div>
+                    <div class="input-group">
+                        <label for="manual-e-input">Clave pública e:</label>
+                        <input type="number" id="manual-e-input" placeholder="Introduce e">
+                    </div>
+                    <div class="input-group">
+                        <label for="manual-n-pub-input">Módulo n:</label>
+                        <input type="number" id="manual-n-pub-input" placeholder="Introduce n">
+                    </div>
+                    <button class="btn btn-encrypt" id="manual-encrypt-btn">Cifrar con clave pública</button>
+                    <div class="cipher-results" id="manual-message-results" style="display:none;">
+                        <div class="cipher-step">
+                            <span class="step-label">Mensaje cifrado (C):</span>
+                            <span class="step-value" id="manual-message-encrypted">-</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Ataque Shor -->
+                <div class="simulator-card shor-attack">
+                    <h4>3️⃣ Simulador Ataque de Shor</h4>
+                    <p>Simula cómo una computadora cuántica rompería tu clave RSA:</p>
+                    <button class="btn btn-attack" id="shor-btn">🔮 Ejecutar Ataque Cuántico</button>
+                    
+                    <div class="attack-progress" id="attack-progress">
+                        <div class="progress-bar">
+                            <div class="progress-fill" id="progress-fill"></div>
+                        </div>
+                        <div class="attack-steps" id="attack-steps"></div>
+                        <div class="attack-results" id="attack-results"></div>
+                    </div>
+
+                    <div class="time-comparison" id="time-comparison">
+                        <div class="time-item classical">
+                            <span class="time-label">Tiempo Clásico:</span>
+                            <span class="time-value" id="classical-time">Millones de años</span>
+                        </div>
+                        <div class="time-item quantum">
+                            <span class="time-label">Tiempo Cuántico:</span>
+                            <span class="time-value" id="quantum-time">Segundos</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sección Educativa -->
+    <section class="education-section">
+        <div class="container">
+            <h3 class="section-title">📚 Preparación para la Era Post-Cuántica</h3>
+            
+            <div class="education-grid">
+                <!-- Timeline -->
+                <div class="timeline-card">
+                    <h4>📅 Roadmap de Migración Bancolombia</h4>
+                    <div class="timeline">
+                        <div class="timeline-item" data-year="2025">
+                            <div class="timeline-marker"></div>
+                            <div class="timeline-content">
+                                <strong>2025</strong> - Inicio evaluación riesgo cuántico
+                            </div>
+                        </div>
+                        <div class="timeline-item" data-year="2028">
+                            <div class="timeline-marker"></div>
+                            <div class="timeline-content">
+                                <strong>2028</strong> - Fase descubrimiento completa (NCSC)
+                            </div>
+                        </div>
+                        <div class="timeline-item" data-year="2030">
+                            <div class="timeline-marker"></div>
+                            <div class="timeline-content">
+                                <strong>2030</strong> - Migración sistemas críticos
+                            </div>
+                        </div>
+                        <div class="timeline-item" data-year="2035">
+                            <div class="timeline-marker"></div>
+                            <div class="timeline-content">
+                                <strong>2035</strong> - Transición completa PQC
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Comparación Algoritmos -->
+                <div class="comparison-card">
+                    <h4>⚖️ Comparación de Algoritmos</h4>
+                    <div class="comparison-table">
+                        <div class="table-header">
+                            <span>Algoritmo</span>
+                            <span>Seguridad</span>
+                            <span>Rendimiento</span>
+                        </div>
+                        <div class="table-row classical">
+                            <span><strong>RSA-2048</strong> (Clásico)</span>
+                            <span class="status vulnerable">Vulnerable</span>
+                            <span class="performance fast">Rápido</span>
+                        </div>
+                        <div class="table-row pqc">
+                            <span><strong>CRYSTALS-Kyber</strong> (PQC)</span>
+                            <span class="status secure">Resistente</span>
+                            <span class="performance moderate">Moderado</span>
+                        </div>
+                        <div class="table-row pqc">
+                            <span><strong>CRYSTALS-Dilithium</strong> (PQC)</span>
+                            <span class="status secure">Resistente</span>
+                            <span class="performance moderate">Moderado</span>
+                        </div>
+                        <div class="table-row pqc">
+                            <span><strong>FALCON</strong> (PQC)</span>
+                            <span class="status secure">Resistente</span>
+                            <span class="performance moderate">Moderado</span>
+                        </div>
+                        <div class="table-row pqc">
+                            <span><strong>SPHINCS+</strong> (PQC)</span>
+                            <span class="status secure">Resistente</span>
+                            <span class="performance moderate">Moderado</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Quiz Interactivo -->
+    <section class="quiz-section">
+        <div class="container">
+            <h3 class="section-title">🧠 Quiz de Conocimientos</h3>
+            <div class="quiz-card" id="quiz-container">
+                <div class="quiz-question" id="quiz-question">
+                    <h4 id="question-text">Cargando pregunta...</h4>
+                    <div class="quiz-options" id="quiz-options">
+                        <!-- Options will be populated by JavaScript -->
+                    </div>
+                </div>
+                <div class="quiz-controls">
+                    <button class="btn btn-quiz" id="submit-btn">Responder</button>
+                    <button class="btn btn-next" id="next-btn" style="display: none;">Siguiente</button>
+                </div>
+                <div class="quiz-score">
+                    Pregunta <span id="current-question">1</span> de <span id="total-questions">3</span> 
+                    | Puntuación: <span id="score">0</span>/3
+                </div>
+                <div class="quiz-feedback" id="quiz-feedback"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer con Exportar -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="export-section">
+                    <h4>📊 Exportar Resumen de Sesión</h4>
+                    <button class="btn btn-export" id="export-btn">Descargar Reporte PDF</button>
+                </div>
+                <div class="footer-info">
+                    <p>&copy; 2025 Bancolombia - Área de Innovación | Criptografía Post-Cuántica</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="app.js"></script>
+</body>
+</html>
